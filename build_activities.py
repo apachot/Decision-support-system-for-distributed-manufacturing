@@ -8,7 +8,8 @@ var_dimension = 100
 
 nomenclature_HS2017 = pd.read_csv('./data/HS2017_4digits.csv', delimiter=',', header=0).to_numpy()
 correspondance_HS2017_NACE2 = pd.read_csv('./data/correspondance_NACE_2_HS_2017_4digits_weighted.csv', delimiter=',', header=0).to_numpy()
-nomenclature_NACE2 = pd.read_csv('./data/NACE_2.csv', delimiter=',', header=None).to_numpy()
+#nomenclature_NACE2 = pd.read_csv('./data/NACE_2.csv', delimiter=',', header=None).to_numpy()
+nomenclature_NACE2 = pd.read_csv('./data/NACE_2_with_HS.csv', delimiter=',', header=0).to_numpy()
 product_vector_space_dim_100 = pd.read_csv('./data/product_vector_space_dim_'+str(var_dimension)+'.csv', delimiter=',', header=0, index_col=0).to_numpy()
 
 print (product_vector_space_dim_100.shape)
@@ -18,27 +19,9 @@ print(product_vector_space_dim_100[:3])
 print (nomenclature_HS2017.shape)
 print(nomenclature_HS2017[:3])
 
-X = np.array([1,2])
-Y = np.array([2,2])
-Z = np.array([2,4])
-
-# calculate cosine similarity between [X] and [Y,Z]
-# sending input as arrays would allow for calculating both cosine_sim(X,Y) and cosine_sim (X,Y)
-cos_sim = cosine_similarity([X], [Y,Z])
-print(cos_sim)
-
-# calculate the entire cosie similarity matrix among X, Y, and Z
-#cos_sim = cosine_similarity([X, Y, Z])
-#print(cos_sim)
-#print()
-
-#cos_sim = cosine_similarity(product_vector_space_dim_100)
-#print (cos_sim.shape)
-#print(cos_sim[:3])
-#pd.DataFrame(cos_sim).to_csv("./data/cos_sim_products_control.csv")
-
 tab_activities_vectors = np.zeros((len(nomenclature_NACE2), 100))
-		
+#tab_real_NACE = []
+
 for i in range(0, len(nomenclature_NACE2)):
 	NACE_code = nomenclature_NACE2[i,0]
 	print('code = ', NACE_code)
@@ -85,5 +68,3 @@ activities_proximities = cosine_similarity(tab_activities_vectors)
 print (activities_proximities.shape)
 print(activities_proximities[:3])
 pd.DataFrame(activities_proximities).to_csv("./data/activities_proximities.csv")
-
-		
