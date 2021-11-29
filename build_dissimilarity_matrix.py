@@ -27,10 +27,10 @@ for i in range(0, len(productive_jumps)):
 		idx_HS_code1_nomenclature =  np.where(nomenclature_HS2017[:,0]==float(HS_code1_2017))
 		idx_HS_code2_nomenclature =  np.where(nomenclature_HS2017[:,0]==float(HS_code2_2017))
 
-		dissimilarity_matrix[idx_HS_code1_nomenclature[0], idx_HS_code1_nomenclature[0]] = 0
-		dissimilarity_matrix[idx_HS_code2_nomenclature[0], idx_HS_code2_nomenclature[0]] = 0
-		dissimilarity_matrix[idx_HS_code1_nomenclature[0], idx_HS_code2_nomenclature[0]] = 1-HS_proximity
-		dissimilarity_matrix[idx_HS_code2_nomenclature[0], idx_HS_code1_nomenclature[0]] = 1-HS_proximity
+		dissimilarity_matrix[idx_HS_code1_nomenclature[0], idx_HS_code1_nomenclature[0]] = 1
+		dissimilarity_matrix[idx_HS_code2_nomenclature[0], idx_HS_code2_nomenclature[0]] = 1
+		dissimilarity_matrix[idx_HS_code1_nomenclature[0], idx_HS_code2_nomenclature[0]] = HS_proximity
+		dissimilarity_matrix[idx_HS_code2_nomenclature[0], idx_HS_code1_nomenclature[0]] = HS_proximity
 
 
 		print (i/len(productive_jumps), " done (",i , "over" , len(productive_jumps),")")

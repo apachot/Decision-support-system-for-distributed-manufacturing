@@ -10,16 +10,16 @@ nomenclature_HS2017 = pd.read_csv('./data/HS2017_4digits.csv', delimiter=',', he
 correspondance_HS2017_NACE2 = pd.read_csv('./data/correspondance_NACE_2_HS_2017_4digits_weighted.csv', delimiter=',', header=0).to_numpy()
 #nomenclature_NACE2 = pd.read_csv('./data/NACE_2.csv', delimiter=',', header=None).to_numpy()
 nomenclature_NACE2 = pd.read_csv('./data/NACE_2_with_HS.csv', delimiter=',', header=0).to_numpy()
-product_vector_space_dim_100 = pd.read_csv('./data/product_vector_space_dim_'+str(var_dimension)+'.csv', delimiter=',', header=0, index_col=0).to_numpy()
+product_vector_space = pd.read_csv('./data/product_vector_space_dim_'+str(var_dimension)+'.csv', delimiter=',', header=0, index_col=0).to_numpy()
 
-print (product_vector_space_dim_100.shape)
-print(product_vector_space_dim_100[:3])
+print (product_vector_space.shape)
+print(product_vector_space[:3])
 
 
 print (nomenclature_HS2017.shape)
 print(nomenclature_HS2017[:3])
 
-tab_activities_vectors = np.zeros((len(nomenclature_NACE2), 100))
+tab_activities_vectors = np.zeros((len(nomenclature_NACE2), var_dimension))
 #tab_real_NACE = []
 
 for i in range(0, len(nomenclature_NACE2)):
@@ -28,7 +28,7 @@ for i in range(0, len(nomenclature_NACE2)):
 	idx_NACE_code =  np.where(correspondance_HS2017_NACE2[:,0]==float(NACE_code))
 	nb_NACE_code = len(idx_NACE_code[0])
 	if (nb_NACE_code > 0):
-		tab_HS_vectors = np.zeros((nb_NACE_code, 100))
+		tab_HS_vectors = np.zeros((nb_NACE_code, var_dimension))
 		tab_HS_weights = np.zeros(nb_NACE_code)
 		print("trouvé, len=",nb_NACE_code)
 		for j in range(0, nb_NACE_code):
@@ -40,7 +40,7 @@ for i in range(0, len(nomenclature_NACE2)):
 			idx_HS_code2017 =  np.where(nomenclature_HS2017[:,0]==float(HS_code2017))
 			if (len(idx_HS_code2017[0]) > 0):
 				#we load the product vector
-				HS_vector = product_vector_space_dim_100[idx_HS_code2017[0],:][0]
+				HS_vector = product_vector_space[idx_HS_code2017[0],:][0]
 				print("HS-vector=",HS_vector)
 				print(HS_vector.shape)
 				print(tab_HS_vectors.shape)
@@ -67,4 +67,4 @@ pd.DataFrame(tab_activities_vectors).to_csv("./data/tab_activities_vectors.csv")
 activities_proximities = cosine_similarity(tab_activities_vectors)
 print (activities_proximities.shape)
 print(activities_proximities[:3])
-pd.DataFrame(activities_proximities).to_csv("./data/activities_proximities.csv")
+pd.DataFrame(activities_proximities+1).to_csv("./data/activities_proximities.csv")

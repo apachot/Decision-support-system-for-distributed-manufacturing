@@ -17,7 +17,8 @@ for i in range(0, len(NACE_2_with_HS)):
 	for j in range(i, len(activities_proximities[i])):
 		if (NACE_2_with_HS[i,0] != NACE_2_with_HS[j]):
 			print(NACE_code, "-", NACE_2_with_HS[j], "->", activities_proximities[i,j])
-			NACE_proximities.append([NACE_code,NACE_2_with_HS[j,0],activities_proximities[i,j]+1])
+			if (activities_proximities[i,j] > 1.4):
+				NACE_proximities.append([NACE_code,NACE_2_with_HS[j,0],activities_proximities[i,j]])
 
 
 pd.DataFrame(NACE_proximities).to_csv("./data/NACE_proximities.csv", header=False, index=False)
