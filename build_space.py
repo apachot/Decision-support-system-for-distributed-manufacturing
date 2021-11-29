@@ -21,4 +21,4 @@ X_transformed = embedding.fit_transform(dissimilarity_matrix)
 print(X_transformed.shape)
 print(X_transformed[:1])
 
-pd.DataFrame(X_transformed).to_csv("./data/proximity_matrix_dim_"+str(var_dimension)+".csv")
+pd.DataFrame(X_transformed).to_csv("./data/product_vector_space_dim_"+str(var_dimension)+".csv")
