@@ -17,7 +17,7 @@ for i in range(0, len(NACE_2_with_HS)):
 	for j in range(i, len(activities_proximities[i])):
 		if (NACE_2_with_HS[i,0] != NACE_2_with_HS[j]):
 			print(NACE_code, "-", NACE_2_with_HS[j], "->", activities_proximities[i,j])
-			if (activities_proximities[i,j] >.8):
+			if (activities_proximities[i,j] >.75):
 				NACE_proximities.append([NACE_code,NACE_2_with_HS[j,0],activities_proximities[i,j]])
 
 
